@@ -76,4 +76,11 @@ export class CellSimulatorEngine {
       this.gen2Grid[row][column] = this.gen1Grid[row][column];
     }
   };
+
+  private updateGrid = (): void => {
+    const gen2 = this.gen2Grid;
+    this.gen2Grid = this.gen1Grid;
+
+    this.gen1Grid = gen2;
+  };
 }
