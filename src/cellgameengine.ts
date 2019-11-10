@@ -83,4 +83,15 @@ export class CellSimulatorEngine {
 
     this.gen1Grid = gen2;
   };
+
+  public iterate = (): Grid => {
+    this.gen1Grid.forEach((row: boolean[], roxIndex: number) => {
+      row.forEach((_, columnIndex: number) => {
+        const liveNeighbours = this.countLiveNeighbours(rowIndex, columnIndex);
+        this.gen2CellState(rowIndex, columnIndex, liveNeighbours);
+      });
+    });
+
+    this.updateGrid;
+  };
 }
