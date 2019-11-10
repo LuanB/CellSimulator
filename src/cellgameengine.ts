@@ -57,4 +57,23 @@ export class CellSimulatorEngine {
 
     return liveNeighbours;
   };
+
+  // Logic for the rules of the next gen cell state
+
+  // if false -> 3 live neigbours then True
+  // if true -> < 2 live neigbours or > 3 live neigbours then False
+
+  private gen2CellState = (
+    row: number,
+    column: number,
+    liveNeighbours: number
+  ): void => {
+    if (liveNeighbours === 3) {
+      this.gen2Grid[row][column] = true;
+    } else if (liveNeighbours > 3 || liveNeighbours < 2)
+      this.gen2Grid[row][column] = false;
+    else {
+      this.gen2Grid[row][column] = this.gen1Grid[row][column];
+    }
+  };
 }
