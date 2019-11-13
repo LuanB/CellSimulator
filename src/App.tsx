@@ -5,31 +5,43 @@ import "./App.css";
 import Buttons from "./components/buttons/buttons.component";
 import Grid from "./components/grid/grid.component";
 
-interface BoxElement {
-  boxClass: string;
-  key: string;
-  boxId: string;
-  row: number;
-  col: number;
-  selectBox: (row: number, col: number) => void;
-}
+// interface BoxElement {
+//   boxClass: string;
+//   key: string;
+//   boxId: string;
+//   row: number;
+//   col: number;
+//   selectBox: (row: number, col: number) => void;
+// }
+//
 
-interface GridProps {
+// interface BoxElement {
+//   boxClass: string;
+//   key: string;
+//   boxId: string;
+//   row: number;
+//   col: number;
+//   selectBox: (row: number, col: number) => void;
+// }
+
+interface GridElement {
   gridFull: boolean[][];
   rows: number;
   cols: number;
   selectBox: (row: number, col: number) => void;
 }
 
-interface Props {
-  selectBox: (row: number, col: number) => void;
-  gridFull: boolean[][];
-  rows: number;
-  cols: number;
-  Box: BoxElement;
+interface ButtonElement {
+  playButton: () => void;
+  clear: () => void;
+  seed: () => void;
+  gridSize: (size: string) => void;
 }
 
-interface IProps {}
+interface IProps {
+  Grid: GridElement;
+  Buttons: ButtonElement;
+}
 
 interface IState {
   generation: number;
@@ -167,6 +179,7 @@ class App extends React.Component<IProps, IState> {
           seed={this.seed}
           gridSize={this.gridSize}
         />
+
         <Grid
           gridFull={this.state.gridFull}
           rows={this.rows}
