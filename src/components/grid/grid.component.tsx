@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import Box from "../box/box.component";
-//
+
 // interface BoxElement {
 //   boxClass: string;
 //   key: string;
@@ -16,6 +16,7 @@ interface Props {
   gridFull: boolean[][];
   rows: number;
   cols: number;
+  //rowsArr: BoxElement[];
 }
 
 interface IState {}
@@ -23,8 +24,11 @@ interface IState {}
 class Grid extends React.Component<Props, IState> {
   render() {
     const width = this.props.cols * 14;
-    var rowsArr: Box[] = [];
+    //  var rowsArr: new Array() = [];
     //var rowsArr: string[] = [];
+    //var rowsArr: [];
+    //var rowsArr: BoxElement[] = [];
+    var rowsArr: Array<JSX.Element> = [];
     var boxClass = "";
     for (var i = 0; i < this.props.rows; i++) {
       for (var j = 0; j < this.props.cols; j++) {
