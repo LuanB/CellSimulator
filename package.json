@@ -3,25 +3,29 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/chai": "^4.2.5",
     "@types/enzyme": "^3.10.3",
     "@types/jest": "^24.0.23",
     "@types/node": "^12.12.7",
     "@types/react": "^16.9.11",
     "@types/react-bootstrap": "^0.32.20",
     "@types/react-dom": "^16.9.4",
+    "chai": "^4.2.0",
     "enzyme-to-json": "^3.4.3",
     "jest": "^24.9.0",
     "react": "^16.11.0",
     "react-bootstrap": "^1.0.0-beta.14",
     "react-dom": "^16.11.0",
     "react-scripts": "3.2.0",
+    "sinon": "^7.5.0",
     "ts-jest": "^24.1.0",
+    "ts-sinon": "^1.0.24",
     "typescript": "^3.7.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test  --env=jsdom --verbose",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -41,6 +45,6 @@
   },
   "devDependencies": {
     "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.15.1"
+    "enzyme-adapter-react-16": "1.10.0"
   }
 }
