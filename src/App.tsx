@@ -8,7 +8,6 @@ import Grid from "./components/grid/grid.component";
 interface IProps {}
 
 interface IState {
-  generation: number;
   gridFull: boolean[][];
 }
 
@@ -25,12 +24,17 @@ class App extends React.Component<IProps, IState> {
     this.cols = 50;
 
     this.state = {
-      generation: 0,
-      gridFull: new Array(this.rows)
-        .fill(false)
-        .map(() => new Array(this.cols).fill(false))
+      gridFull: this.make2DArray()
     };
   }
+
+  make2DArray = () => {
+    let arr = new Array(this.cols).fill(false);
+    for (let i = 0; i < arr.length; i++) {
+      arr[i] = new Array(this.rows).fill(false);
+    }
+    return arr;
+  };
 
   selectBox = (row, col) => {
     let gridCopy = arrayClone(this.state.gridFull);
@@ -41,35 +45,14 @@ class App extends React.Component<IProps, IState> {
   };
 
   nextGenButton = () => {
-    //  clearInterval(this.intervalId);
-    //  this.intervalId = setInterval(this.play, this.speed);
+    this.nextGen();
   };
 
   clear = () => {
-    var grid = new Array(this.rows)
-      .fill(false)
-      .map(() => new Array(this.cols).fill(false));
+    var grid = this.make2DArray();
     this.setState({
-      gridFull: grid,
-      generation: 0
+      gridFull: grid
     });
-  };
-
-  gridSize = size => {
-    switch (size) {
-      case "1":
-        this.cols = 20;
-        this.rows = 10;
-        break;
-      case "2":
-        this.cols = 50;
-        this.rows = 30;
-        break;
-      default:
-        this.cols = 70;
-        this.rows = 50;
-    }
-    this.clear();
   };
 
   // countLiveNeighbours = (row: number, column: number): number => {
@@ -88,7 +71,7 @@ class App extends React.Component<IProps, IState> {
   //     return liveNeighbours;
   //   };
 
-  play = () => {
+  nextGen = () => {
     let g = this.state.gridFull;
     let g2 = arrayClone(this.state.gridFull);
 
@@ -109,24 +92,17 @@ class App extends React.Component<IProps, IState> {
       }
     }
     this.setState({
-      gridFull: g2,
-      generation: this.state.generation + 1
+      gridFull: g2
     });
   };
 
-  componentDidMount() {
-    this.nextGenButton();
-  }
+  componentDidMount() {}
 
   render() {
     return (
       <div>
         <h1> Cell Simulation</h1>
-        <Buttons
-          nextGenButton={this.nextGenButton}
-          clear={this.clear}
-          gridSize={this.gridSize}
-        />
+        <Buttons nextGenButton={this.nextGenButton} clear={this.clear} />
 
         <Grid
           gridFull={this.state.gridFull}
