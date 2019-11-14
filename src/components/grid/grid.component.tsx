@@ -18,6 +18,14 @@ interface Props {
   cols: number;
   //rowsArr: BoxElement[];
 }
+interface BoxInputProps {
+  boxClass: string;
+  key: string;
+  boxId: string;
+  row: number;
+  col: number;
+  selectBox: (row: number, col: number) => void;
+}
 
 interface IState {}
 
@@ -29,6 +37,8 @@ class Grid extends React.Component<Props, IState> {
     //var rowsArr: [];
     //var rowsArr: BoxElement[] = [];
     var rowsArr: Array<JSX.Element> = [];
+    //rowsArr: Array<BoxInputProps> = [];
+
     var boxClass = "";
     for (var i = 0; i < this.props.rows; i++) {
       for (var j = 0; j < this.props.cols; j++) {
