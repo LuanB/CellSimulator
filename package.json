@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "cellsimulator",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -17,6 +17,11 @@
     "react-bootstrap": "^1.0.0-beta.14",
     "react-dom": "^16.11.0",
     "react-scripts": "3.2.0",
+    "react-redux": "^7.1.0",
+    "redux": "^4.0.4",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^5.10.0",
+    "reselect": "^4.0.0",
     "sinon": "^7.5.0",
     "ts-jest": "^24.1.0",
     "ts-sinon": "^1.0.24",
