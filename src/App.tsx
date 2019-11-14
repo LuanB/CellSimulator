@@ -5,44 +5,6 @@ import "./App.css";
 import Buttons from "./components/buttons/buttons.component";
 import Grid from "./components/grid/grid.component";
 
-// interface BoxElement {
-//   boxClass: string;
-//   key: string;
-//   boxId: string;
-//   row: number;
-//   col: number;
-//   selectBox: (row: number, col: number) => void;
-// }
-//
-
-// interface BoxElement {
-//   boxClass: string;
-//   key: string;
-//   boxId: string;
-//   row: number;
-//   col: number;
-//   selectBox: (row: number, col: number) => void;
-// }
-
-// interface GridElement {
-//   gridFull: boolean[][];
-//   rows: number;
-//   cols: number;
-//   selectBox: (row: number, col: number) => void;
-// }
-//
-// interface ButtonElement {
-//   playButton: () => void;
-//   clear: () => void;
-//   seed: () => void;
-//   gridSize: (size: string) => void;
-// }
-//
-// interface IProps {
-//   Grid: GridElement;
-//   Buttons: ButtonElement;
-// }
-
 interface IProps {}
 
 interface IState {
@@ -78,21 +40,7 @@ class App extends React.Component<IProps, IState> {
     });
   };
 
-  seed = () => {
-    let gridCopy = arrayClone(this.state.gridFull);
-    for (let i = 0; i < this.rows; i++) {
-      for (let j = 0; j < this.cols; j++) {
-        if (Math.floor(Math.random() * 4) === 1) {
-          gridCopy[i][j] = true;
-        }
-      }
-    }
-    this.setState({
-      gridFull: gridCopy
-    });
-  };
-
-  playButton = () => {
+  nextGenButton = () => {
     //  clearInterval(this.intervalId);
     //  this.intervalId = setInterval(this.play, this.speed);
   };
@@ -167,8 +115,7 @@ class App extends React.Component<IProps, IState> {
   };
 
   componentDidMount() {
-    this.seed();
-    this.playButton();
+    this.nextGenButton();
   }
 
   render() {
@@ -176,9 +123,8 @@ class App extends React.Component<IProps, IState> {
       <div>
         <h1> Cell Simulation</h1>
         <Buttons
-          playButton={this.playButton}
+          nextGenButton={this.nextGenButton}
           clear={this.clear}
-          seed={this.seed}
           gridSize={this.gridSize}
         />
 

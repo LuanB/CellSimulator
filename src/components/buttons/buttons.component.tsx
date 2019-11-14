@@ -3,9 +3,8 @@ import * as React from "react";
 import { ButtonToolbar, Dropdown, DropdownButton } from "react-bootstrap";
 
 interface Props {
-  playButton: () => void;
+  nextGenButton: () => void;
   clear: () => void;
-  seed: () => void;
   gridSize: (evt: string) => void;
 }
 
@@ -18,15 +17,15 @@ class Buttons extends React.Component<Props> {
     return (
       <div className="center">
         <ButtonToolbar>
-          <button className="btn btn-default" onClick={this.props.playButton}>
-            Play
-          </button>{" "}
+          <button
+            className="btn btn-default"
+            onClick={this.props.nextGenButton}
+          >
+            Trigger Next Generation
+          </button>
           <button className="btn btn-default" onClick={this.props.clear}>
-            Clear{" "}
-          </button>{" "}
-          <button className="btn btn-default" onClick={this.props.seed}>
-            Seed{" "}
-          </button>{" "}
+            Reset
+          </button>
           <DropdownButton
             title="Grid Size"
             id="size-menu"
