@@ -13,12 +13,15 @@ class Buttons extends React.Component<Props> {
       <div className="center">
         <ButtonToolbar>
           <button
-            className="btn btn-default"
+            className="nxtGenbtn btn btn-default"
             onClick={this.props.nextGenButton}
           >
             Trigger Next Generation
           </button>
-          <button className="btn btn-default" onClick={this.props.clear}>
+          <button
+            className="resetbtn btn btn-default"
+            onClick={this.props.clear}
+          >
             Reset
           </button>
         </ButtonToolbar>
