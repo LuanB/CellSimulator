@@ -1,5 +1,5 @@
 import * as React from "react";
-import logo from "./logo.svg";
+
 import "./App.css";
 
 import Buttons from "./components/buttons/buttons.component";
@@ -24,24 +24,26 @@ import Grid from "./components/grid/grid.component";
 //   selectBox: (row: number, col: number) => void;
 // }
 
-interface GridElement {
-  gridFull: boolean[][];
-  rows: number;
-  cols: number;
-  selectBox: (row: number, col: number) => void;
-}
+// interface GridElement {
+//   gridFull: boolean[][];
+//   rows: number;
+//   cols: number;
+//   selectBox: (row: number, col: number) => void;
+// }
+//
+// interface ButtonElement {
+//   playButton: () => void;
+//   clear: () => void;
+//   seed: () => void;
+//   gridSize: (size: string) => void;
+// }
+//
+// interface IProps {
+//   Grid: GridElement;
+//   Buttons: ButtonElement;
+// }
 
-interface ButtonElement {
-  playButton: () => void;
-  clear: () => void;
-  seed: () => void;
-  gridSize: (size: string) => void;
-}
-
-interface IProps {
-  Grid: GridElement;
-  Buttons: ButtonElement;
-}
+interface IProps {}
 
 interface IState {
   generation: number;
