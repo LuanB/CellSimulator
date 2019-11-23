@@ -40,14 +40,14 @@ export class CellSimulatorEngine {
 
   private countLiveNeighbours = (row: number, column: number): number => {
     let liveNeighbours = 0;
-    const gridcols = this.gen1Grid[0].length;
-    const gridrows = this.gen1Grid.length;
+    const gridcols = this.currentGrid[0].length;
+    const gridrows = this.currentGrid.length;
 
     for (let i = row - 1; i <= row + i; i++) {
       for (let j = column - 1; j <= column + 1; j++) {
         let col = (j + gridcols) % gridcols;
         let row = (i + gridrows) % gridrows;
-        liveNeighbours += Number(this.gen1Grid[row][col]);
+        liveNeighbours += Number(this.currentGrid[row][col]);
       }
     }
 
