@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as CellEngine from "../../cellgameengine";
-import { Grid } from "../../components/grid/grid.component";
+import Grid from "../../components/grid/grid.component";
 import "./simulationpage.styles.scss";
 
 export interface IAppProps {

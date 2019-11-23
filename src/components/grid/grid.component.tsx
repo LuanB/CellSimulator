@@ -9,14 +9,14 @@ interface Props {
   cols: number;
   //rowsArr: BoxElement[];
 }
-interface BoxInputProps {
-  boxClass: string;
-  key: string;
-  boxId: string;
-  row: number;
-  col: number;
-  selectBox: (row: number, col: number) => void;
-}
+// interface BoxInputProps {
+//   boxClass: string;
+//   key: string;
+//   boxId: string;
+//   row: number;
+//   col: number;
+//   selectBox: (row: number, col: number) => void;
+// }
 
 interface IState {}
 
