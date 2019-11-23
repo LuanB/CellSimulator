@@ -5,10 +5,17 @@ export class CellSimulatorEngine {
 
   private gen2Grid: Grid;
 
+  private currentGrid: Grid;
+
+  private nextGrid: Grid;
+
   public constructor(rows: number, columns: number) {
     // setting up the grids
     this.gen1Grid = this.emptyGrid(rows, columns);
     this.gen2Grid = this.emptyGrid(rows, columns);
+
+    this.currentGrid = this.gen1Grid;
+    this.nextGrid = this.gen2Grid;
   }
 
   public get cells(): Grid {
@@ -24,8 +31,8 @@ export class CellSimulatorEngine {
   // allows to toggle the state of the cell at the board coordinates: dead -> alive or alive -> dead
 
   public toggleCell = (row: number, column: number): Grid => {
-    this.gen1Grid[row][column] = !this.gen1Grid[row][column];
-    return this.gen1Grid;
+    this.currentGrid[row][column] = !this.currentGrid[row][column];
+    return this.currentGrid;
   };
 
   // get sum of live cells around the coordinates. With the edges we need to wrap it to the other side
