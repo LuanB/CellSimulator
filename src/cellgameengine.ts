@@ -28,9 +28,9 @@ export class CellSimulatorEngine {
     this.nextGrid = this.gen2Grid;
   }
 
-  public get cells(): Grid {
-    return this.gen1Grid;
-  }
+  // public get cells(): Grid {
+  //   return this.gen1Grid;
+  // }
 
   private emptyGrid = (rows: number, columns: number): Grid => {
     return Array(rows)
@@ -40,7 +40,7 @@ export class CellSimulatorEngine {
 
   public resetCurrentGrid = (): Grid => {
     this.currentGrid.map(row => row.fill(false));
-    return this.cells;
+    return this.currentCellBoard;
   };
 
   // allows to toggle the state of the cell at the board coordinates: dead -> alive or alive -> dead
@@ -80,11 +80,11 @@ export class CellSimulatorEngine {
     liveNeighbours: number
   ): void => {
     if (liveNeighbours === 3) {
-      this.gen2Grid[row][column] = true;
+      this.nextGrid[row][column] = true;
     } else if (liveNeighbours > 3 || liveNeighbours < 2)
-      this.gen2Grid[row][column] = false;
+      this.nextGrid[row][column] = false;
     else {
-      this.gen2Grid[row][column] = this.gen1Grid[row][column];
+      this.nextGrid[row][column] = this.nextGrid[row][column];
     }
   };
 
