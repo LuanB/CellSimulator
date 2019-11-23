@@ -9,6 +9,16 @@ export class CellSimulatorEngine {
 
   private nextGrid: Grid;
 
+  // getters setters
+
+  public get currentCellBoard(): Grid {
+    return this.currentGrid;
+  }
+
+  public get nextCellBoard(): Grid {
+    return this.nextGrid;
+  }
+
   public constructor(rows: number, columns: number) {
     // setting up the grids
     this.gen1Grid = this.emptyGrid(rows, columns);
@@ -26,6 +36,11 @@ export class CellSimulatorEngine {
     return Array(rows)
       .fill(false)
       .map(() => Array(columns).fill(false));
+  };
+
+  public resetCurrentGrid = (): Grid => {
+    this.currentGrid.map(row => row.fill(false));
+    return this.cells;
   };
 
   // allows to toggle the state of the cell at the board coordinates: dead -> alive or alive -> dead
