@@ -89,14 +89,14 @@ export class CellSimulatorEngine {
   };
 
   private updateGrid = (): void => {
-    const gen2 = this.gen2Grid;
-    this.gen2Grid = this.gen1Grid;
+    const gen2 = this.nextGrid;
+    this.nextGrid = this.currentGrid;
 
-    this.gen1Grid = gen2;
+    this.currentGrid = gen2;
   };
 
   public iterate = (): Grid => {
-    this.gen1Grid.forEach((row: boolean[], rowIndex: number) => {
+    this.currentGrid.forEach((row: boolean[], rowIndex: number) => {
       row.forEach((_, columnIndex: number) => {
         const liveNeighbours = this.countLiveNeighbours(rowIndex, columnIndex);
         this.gen2CellState(rowIndex, columnIndex, liveNeighbours);
@@ -104,6 +104,6 @@ export class CellSimulatorEngine {
     });
 
     this.updateGrid();
-    return this.gen1Grid;
+    return this.currentGrid;
   };
 }

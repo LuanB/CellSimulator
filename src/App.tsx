@@ -4,11 +4,15 @@ import "./App.css";
 
 import Buttons from "./components/buttons/buttons.component";
 import Grid from "./components/grid/grid.component";
+import * as CellEngine from "./cellgameengine";
 
-interface IProps {}
+interface IProps {
+  cellSimulatorEngine: CellEngine.CellSimulatorEngine;
+}
 
 interface IState {
-  gridFull: boolean[][];
+  //gridFull: boolean[][];
+  gridFull: CellEngine.Grid;
 }
 
 class App extends React.Component<IProps, IState> {
@@ -24,7 +28,8 @@ class App extends React.Component<IProps, IState> {
     this.cols = 50;
 
     this.state = {
-      gridFull: this.make2DArray()
+      //  gridFull: this.make2DArray()
+      gridFull: this.props.cellSimulatorEngine.currentCellBoard
     };
   }
 
@@ -36,11 +41,9 @@ class App extends React.Component<IProps, IState> {
     return arr;
   };
 
-  selectBox = (row, col) => {
-    let gridCopy = arrayClone(this.state.gridFull);
-    gridCopy[row][col] = !gridCopy[row][col];
+  private selectBox = (row: number, col: number) => {
     this.setState({
-      gridFull: gridCopy
+      gridFull: this.props.cellSimulatorEngine.toggleCell(row, col)
     });
   };
 
