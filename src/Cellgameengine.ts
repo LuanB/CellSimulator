@@ -1,24 +1,14 @@
 export type Grid = boolean[][];
 
 export class CellSimulatorEngine {
-  //private readonly gen1Grid: Grid;
-
-  //private readonly gen2Grid: Grid;
-
   private currentGrid: Grid;
 
   private nextGrid: Grid;
 
   public constructor(rows: number, columns: number) {
-    // setting up the grids
-    // this.gen1Grid = this.emptyGrid(rows, columns);
-    //
-    // this.gen2Grid = this.emptyGrid(rows, columns);
-    //
-    // this.currentGrid = this.gen1Grid;
-    // this.nextGrid = this.gen2Grid;
-
     this.currentGrid = this.emptyGrid(rows, columns);
+
+    // clone the current grid for nextgrid.
     this.nextGrid = [...this.currentGrid];
   }
 
@@ -30,25 +20,18 @@ export class CellSimulatorEngine {
   };
 
   public iterate = (): Grid => {
-    console.log("starting iteration");
+    // Logic for the rules of the next gen cell state
 
-    // this.currentGrid.forEach((row: boolean[], rowIndex: number) => {
-    //   row.forEach((_, columnIndex: number) => {
-    //     const liveNeighbours = this.countLiveNeighbours(rowIndex, columnIndex);
-    //     this.gen2CellState(rowIndex, columnIndex, liveNeighbours);
-    //   });
-    // });
+    // if false -> 3 live neigbours then True
+    // if true -> < 2 live neigbours or > 3 live neigbours then False
+
+    // loop through the 2D Array
 
     for (let i = 0; i < 10; i++) {
       for (let j = 0; j < 10; j++) {
-        //  let state = grid[i][j];
         let state = this.currentGrid[j][i];
-        console.log("about to count live nebours");
-        // Count live neighbors!
-        //let sum = 0;
         let neighbors = this.countLiveNeighbours(j, i);
-        //  let neighbors = 3;
-        console.log("neigbours are ", neighbors);
+
         if (state === false && neighbors === 3) {
           this.nextGrid[j][i] = true;
         } else if (state === true && (neighbors < 2 || neighbors > 3)) {
@@ -92,55 +75,20 @@ export class CellSimulatorEngine {
     return this.nextGrid;
   }
 
-  // get sum of live cells around the coordinates. With the edges we need to wrap it to the other side
-  // using (row + height) % height
-
   private countLiveNeighbours = (row: number, column: number): number => {
     let liveNeighbours = 0;
-    // const gridcols = this.currentGrid[0].length;
-    // const gridrows = this.currentGrid.length;
 
-    // for (let i = row - 1; i <= row + i; i++) {
-    //   for (let j = column - 1; j <= column + 1; j++) {
     console.log("starting count neighbors loop");
     for (let i = -1; i < 2; i++) {
       for (let j = -1; j < 2; j++) {
         let wrapedcol = (j + column + this.width) % this.width;
         let wrapedrow = (i + row + this.height) % this.height;
         liveNeighbours += Number(this.currentGrid[wrapedrow][wrapedcol]);
-        //(liveNeighbours = 3);
       }
     }
     console.log(liveNeighbours);
 
     return liveNeighbours;
-  };
-
-  // Logic for the rules of the next gen cell state
-
-  // if false -> 3 live neigbours then True
-  // if true -> < 2 live neigbours or > 3 live neigbours then False
-
-  private gen2CellState = (
-    row: number,
-    column: number,
-    liveNeighbours: number
-  ): void => {
-    // if (liveNeighbours === 3) {
-    //   this.nextGrid[row][column] = true;
-    // } else if (liveNeighbours > 3 || liveNeighbours < 2)
-    //   this.nextGrid[row][column] = false;
-    // else {
-    //   this.nextGrid[row][column] = this.nextGrid[row][column];
-    // }
-
-    if (liveNeighbours === 3) {
-      this.nextGrid[row][column] = true;
-    } else if (liveNeighbours === 4) {
-      this.nextGrid[row][column] = this.currentGrid[row][column];
-    } else {
-      this.nextGrid[row][column] = false;
-    }
   };
 
   private updateGrid = (): void => {
