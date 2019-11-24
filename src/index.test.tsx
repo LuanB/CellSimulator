@@ -1,5 +1,5 @@
 import React from "react";
-import { mount } from "enzyme";
+import { shallow } from "enzyme";
 import { expect } from "chai";
 
 import ReactDOM from "react-dom";
@@ -17,8 +17,8 @@ describe("App component", () => {
     ReactDOM.unmountComponentAtNode(div);
   });
 
-  it("renders Buttons and Grid components ", () => {
-    const wrapper = mount(<App cellSimulatorEngine={cellSimulation} />);
+  it("renders 2 Buttons and 1 Grid components ", () => {
+    const wrapper = shallow(<App cellSimulatorEngine={cellSimulation} />);
     expect(wrapper.find(Grid)).to.have.lengthOf(1);
     expect(wrapper.find(Button)).to.have.lengthOf(2);
   });
