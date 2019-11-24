@@ -1,56 +1,46 @@
 import * as React from "react";
+//import Box from "../box/box.component";
+import * as CellEngine from "../../cellgameengine";
 
-import Box from "../box/box.component";
-
-interface Props {
-  selectBox: (row: number, col: number) => void;
-  gridFull: boolean[][];
-  rows: number;
-  cols: number;
-  //rowsArr: BoxElement[];
+interface IProps {
+  selectBox: (row: number, col: number) => () => void;
+  gridFull: CellEngine.Grid;
 }
-// interface BoxInputProps {
-//   boxClass: string;
-//   key: string;
-//   boxId: string;
-//   row: number;
-//   col: number;
-//   selectBox: (row: number, col: number) => void;
-// }
 
-interface IState {}
+export const Grid = (props: IProps) => {
+  const boardGrid = (board: CellEngine.Grid): JSX.Element[] => {
+    return board.map((row: boolean[], rowIndex: number) => {
+      const rowCells = row.map((cell: boolean, columnIndex: number) => {
+        return renderCell(rowIndex, columnIndex, cell);
+      });
+      return <tr key={rowIndex}>{rowCells}</tr>;
+    });
+  };
 
-class Grid extends React.Component<Props, IState> {
-  render() {
-    const width = this.props.cols * 14;
-
-    var rowsArr: Array<JSX.Element> = [];
-
-    var boxClass = "";
-    for (var i = 0; i < this.props.rows; i++) {
-      for (var j = 0; j < this.props.cols; j++) {
-        let boxId = i + "_" + j;
-
-        boxClass = this.props.gridFull[i][j] ? "box on" : "box off";
-        rowsArr.push(
-          <Box
-            boxClass={boxClass}
-            key={boxId}
-            boxId={boxId}
-            row={i}
-            col={j}
-            selectBox={this.props.selectBox}
-          />
-        );
-      }
-    }
-
+  const renderCell = (
+    row: number,
+    column: number,
+    value: boolean
+  ): JSX.Element => {
+    const key = row + "_" + column;
     return (
-      <div className="grid" style={{ width: width }}>
-        {rowsArr}
-      </div>
+      <td
+        id={"cell_" + key}
+        key={key}
+        className={"cell" + (value ? " -is-active" : "")}
+        onMouseDown={props.selectBox(row, column)}
+      >
+        {value}
+      </td>
     );
-  }
-}
+  };
 
-export default Grid;
+  return (
+    <div>
+      <p>test</p>
+      <table className="game-grid">
+        <tbody>{boardGrid(props.gridFull)}</tbody>
+      </table>
+    </div>
+  );
+};
