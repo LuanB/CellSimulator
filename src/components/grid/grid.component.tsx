@@ -1,6 +1,6 @@
 import * as React from "react";
 //import Box from "../box/box.component";
-import * as CellEngine from "../../cellgameengine";
+import * as CellEngine from "../../Cellgameengine";
 
 interface IProps {
   selectBox: (row: number, col: number) => () => void;
@@ -37,7 +37,6 @@ export const Grid = (props: IProps) => {
 
   return (
     <div>
-      <p>test</p>
       <table className="game-grid">
         <tbody>{boardGrid(props.gridFull)}</tbody>
       </table>

@@ -2,64 +2,77 @@ import * as React from "react";
 
 import "./App.css";
 
-import Buttons from "./components/buttons/buttons.component";
+import { Button } from "./components/buttons/button.component";
 import { Grid } from "./components/grid/grid.component";
-import * as CellEngine from "./cellgameengine";
+import * as CellEngine from "./Cellgameengine";
 
-interface IProps {
+export interface IProps {
   cellSimulatorEngine: CellEngine.CellSimulatorEngine;
 }
 
-interface IState {
+export interface IState {
   gridFull: CellEngine.Grid;
+  isPlaying: boolean;
+  animation: NodeJS.Timer;
+  speed: number;
 }
 
-class App extends React.Component<IProps, IState> {
-  state: IState;
-  speed: number;
-  rows: number;
-  cols: number;
+export class App extends React.Component<IProps, IState> {
+  //state: IState;
+  // speed: number;
+  // rows: number;
+  // cols: number;
 
-  constructor(props: IProps) {
-    super(props);
-    this.speed = 100;
-    this.rows = 30;
-    this.cols = 50;
-
-    this.state = {
-      gridFull: this.props.cellSimulatorEngine.currentCellBoard
-    };
+  private static determineInterval(speed: number): number {
+    return 3000 / (3 * Math.pow(speed, 1.5));
   }
 
-  private nextGenButton = (): void => {
-    this.iterate();
+  public state = {
+    animation: setInterval(() => {}, 1000),
+    gridFull: this.props.cellSimulatorEngine.currentCellBoard,
+    isPlaying: false,
+    speed: 5
   };
 
-  clear = () => {
+  public render() {
+    return (
+      <div>
+        <h1> Cell Simulation</h1>
+        <Button id="nextButton" label="Next" onClick={this.iterate} />
+        <Button id="clearButton" label="Clear" onClick={this.clear} />
+        <Button id="playButton" label="Play" onClick={this.togglePlay} />
+        <Grid gridFull={this.state.gridFull} selectBox={this.selectBox} />
+      </div>
+    );
+  }
+
+  private clear = (): void => {
     this.props.cellSimulatorEngine.resetCurrentGrid();
     this.setState({
       gridFull: this.props.cellSimulatorEngine.resetCurrentGrid()
     });
   };
 
-  componentDidMount() {}
-
-  render() {
-    return (
-      <div>
-        <h1> Cell Simulation</h1>
-        <Buttons nextGenButton={this.nextGenButton} clear={this.clear} />
-
-        <Grid gridFull={this.state.gridFull} selectBox={this.selectBox} />
-      </div>
-    );
-  }
-
   private iterate = (): void => {
     this.props.cellSimulatorEngine.iterate();
     this.setState({
       gridFull: this.props.cellSimulatorEngine.currentCellBoard
     });
+    return;
+  };
+
+  private togglePlay = (): void => {
+    const isPlaying = !this.state.isPlaying;
+    this.setState({ isPlaying });
+
+    // Keep in mind that we’ve just updated isPlaying to the new state
+    if (isPlaying) {
+      this.setState({
+        animation: setInterval(this.iterate, App.determineInterval(3))
+      });
+    } else {
+      clearInterval(this.state.animation);
+    }
   };
 
   private selectBox = (row: number, col: number) => () => {
@@ -69,4 +82,4 @@ class App extends React.Component<IProps, IState> {
   };
 }
 
-export default App;
+//export default App;
