@@ -43,9 +43,11 @@ export class CellSimulatorEngine {
       for (let j = 0; j < 10; j++) {
         //  let state = grid[i][j];
         let state = this.currentGrid[j][i];
+        console.log("about to count live nebours");
         // Count live neighbors!
         //let sum = 0;
         let neighbors = this.countLiveNeighbours(j, i);
+        //  let neighbors = 3;
         console.log("neigbours are ", neighbors);
         if (state === false && neighbors === 3) {
           this.nextGrid[j][i] = true;
@@ -98,11 +100,15 @@ export class CellSimulatorEngine {
     // const gridcols = this.currentGrid[0].length;
     // const gridrows = this.currentGrid.length;
 
-    for (let i = row - 1; i <= row + i; i++) {
-      for (let j = column - 1; j <= column + 1; j++) {
-        let col = (j + this.width) % this.width;
-        let row = (i + this.height) % this.height;
-        liveNeighbours += Number(this.currentGrid[row][col]);
+    // for (let i = row - 1; i <= row + i; i++) {
+    //   for (let j = column - 1; j <= column + 1; j++) {
+    console.log("starting count neighbors loop");
+    for (let i = -1; i < 2; i++) {
+      for (let j = -1; j < 2; j++) {
+        let wrapedcol = (j + column + this.width) % this.width;
+        let wrapedrow = (i + row + this.height) % this.height;
+        liveNeighbours += Number(this.currentGrid[wrapedrow][wrapedcol]);
+        //(liveNeighbours = 3);
       }
     }
     console.log(liveNeighbours);
